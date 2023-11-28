@@ -1,1 +1,1 @@
-from .app import GuiApp
+from .app import TkApp
