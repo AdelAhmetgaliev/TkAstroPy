@@ -15,7 +15,6 @@ class TkApp(tk.Tk):
         default_font.configure(size=14)
         self.option_add('*Font', default_font)
 
-
         self.frame = InputPage(None, self)
 
     def _get_init_geometry(self) -> str:
