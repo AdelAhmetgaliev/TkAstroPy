@@ -27,6 +27,9 @@ class InputPage(ttk.Frame):
         if inner_radius_val < 0 or outer_radius_val < 0:
             self.error_label.configure(text='Радиус кольца не может быть отрицательным!')
             return
+        if inner_radius_val > outer_radius_val:
+            self.error_label.configure(text='Внутренний радиус не может быть больше внешнего!')
+            return
 
         self.error_label.configure(text='')
 
