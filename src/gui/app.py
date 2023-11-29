@@ -5,22 +5,25 @@ from .input_page import InputPage
 
 
 class TkApp(tk.Tk):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
         self.wm_title('Tkinter Astro App')
         self.wm_geometry(self._get_init_geometry())
 
+        self._configure_font()
+
+        self.frame = InputPage(None, self)
+
+    def _configure_font(self) -> None:
         default_font = tkFont.nametofont('TkDefaultFont')
         default_font.configure(size=14)
         self.option_add('*Font', default_font)
 
-        self.frame = InputPage(None, self)
-
     def _get_init_geometry(self) -> str:
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
-    
+ 
         app_width = str(screen_width // 2)
         app_height = str(screen_height // 2)
 

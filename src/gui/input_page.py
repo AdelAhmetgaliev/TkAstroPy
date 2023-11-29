@@ -4,21 +4,21 @@ from tkinter import ttk
 
 
 class InputPage(ttk.Frame):
-    def __init__(self, master, controller):
+    def __init__(self, master, controller) -> None:
         super().__init__(master)
         self.controller = controller
-        
+ 
         self._init_variables()
         self._init_widgets()
 
-    def _on_write(self, *_):
+    def _on_write(self, *_) -> None:
         try:
             star_coord_x_val = self.star_coord_x.get()
             star_coord_y_val = self.star_coord_y.get()
             inner_radius_val = self.inner_radius.get()
             outer_radius_val = self.outer_radius.get()
         except _tkinter.TclError:
-            error_text = 'Вводить можно только целые числа!'
+            error_text = 'Введите целое число!'
             self.error_label.configure(text=error_text)
             return
 
@@ -37,7 +37,7 @@ class InputPage(ttk.Frame):
 
         self.error_label.configure(text='')
 
-    def _init_variables(self):
+    def _init_variables(self) -> None:
         self.star_coord_x = tk.IntVar()
         self.star_coord_y = tk.IntVar()
         self.inner_radius = tk.IntVar()
@@ -48,7 +48,7 @@ class InputPage(ttk.Frame):
         self.inner_radius.trace_add('write', self._on_write)
         self.outer_radius.trace_add('write', self._on_write)
 
-    def _init_widgets(self):
+    def _init_widgets(self) -> None:
         self.columnconfigure(0, weight=2)
         self.columnconfigure(1, weight=4)
 
