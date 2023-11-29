@@ -1,6 +1,8 @@
 import _tkinter
 import tkinter as tk
+
 from tkinter import ttk
+from tkinter import filedialog
 
 
 class InputPage(ttk.Frame):
@@ -10,6 +12,9 @@ class InputPage(ttk.Frame):
  
         self._init_variables()
         self._init_widgets()
+
+    def _read_filepath(self) -> None:
+        self.filepath = filedialog.askopenfilename()
 
     def _on_write(self, *_) -> None:
         try:
@@ -38,6 +43,8 @@ class InputPage(ttk.Frame):
         self.error_label.configure(text='')
 
     def _init_variables(self) -> None:
+        self.filepath = ""
+
         self.star_coord_x = tk.IntVar()
         self.star_coord_y = tk.IntVar()
         self.inner_radius = tk.IntVar()
@@ -61,7 +68,9 @@ class InputPage(ttk.Frame):
         self.entry_star_coord_y = ttk.Entry(self, textvariable=self.star_coord_y)
         self.entry_inner_radius = ttk.Entry(self, textvariable=self.inner_radius)
         self.entry_outer_radius = ttk.Entry(self, textvariable=self.outer_radius)
- 
+
+        self.input_file_button = ttk.Button(self, text='Открыть файл', command=self._read_filepath)
+
         self.text_input_star_coord_label.grid(
                 column=0, row=0,
                 columnspan=2,
@@ -100,8 +109,13 @@ class InputPage(ttk.Frame):
                 padx=50, pady=3,
                 sticky='w'
         )
-        self.error_label.grid(
+        self.input_file_button.grid(
                 column=0, row=6,
+                padx=10, pady=50,
+                sticky='w'
+        )
+        self.error_label.grid(
+                column=0, row=7,
                 columnspan=2,
                 padx=10, pady=50,
                 sticky='w'
