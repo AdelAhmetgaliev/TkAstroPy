@@ -52,15 +52,15 @@ class InputPage(ttk.Frame):
         self.columnconfigure(0, weight=2)
         self.columnconfigure(1, weight=4)
 
-        self.text_input_star_coord_label = ttk.Label(text='Введите координаты звезды:')
-        self.text_input_inner_radius_label = ttk.Label(text='Введите внутренний радиус кольца:')
-        self.text_input_outer_radius_label = ttk.Label(text='Введите внешний радиус кольца:')
-        self.error_label = ttk.Label(foreground='red')
+        self.text_input_star_coord_label = ttk.Label(self, text='Введите координаты звезды:')
+        self.text_input_inner_radius_label = ttk.Label(self, text='Введите внутренний радиус кольца:')
+        self.text_input_outer_radius_label = ttk.Label(self, text='Введите внешний радиус кольца:')
+        self.error_label = ttk.Label(self, foreground='red')
 
-        self.entry_star_coord_x = ttk.Entry(textvariable=self.star_coord_x)
-        self.entry_star_coord_y = ttk.Entry(textvariable=self.star_coord_y)
-        self.entry_inner_radius = ttk.Entry(textvariable=self.inner_radius)
-        self.entry_outer_radius = ttk.Entry(textvariable=self.outer_radius)
+        self.entry_star_coord_x = ttk.Entry(self, textvariable=self.star_coord_x)
+        self.entry_star_coord_y = ttk.Entry(self, textvariable=self.star_coord_y)
+        self.entry_inner_radius = ttk.Entry(self, textvariable=self.inner_radius)
+        self.entry_outer_radius = ttk.Entry(self, textvariable=self.outer_radius)
  
         self.text_input_star_coord_label.grid(
                 column=0, row=0,
