@@ -15,6 +15,8 @@ class InputPage(ttk.Frame):
 
     def _read_filepath(self) -> None:
         self.filepath = filedialog.askopenfilename()
+        if self.filepath == ():
+            self.filepath = ""
 
     def _on_write(self, *_) -> None:
         try:

@@ -64,7 +64,7 @@ class TkApp(tk.Tk):
 
         return f'{app_width}x{app_height}+{app_xcenter}+{app_ycenter}'
 
-    def _save_config(self) -> None:
+    def _save_preset(self) -> None:
         filepath = filedialog.asksaveasfilename()
         if filepath == ():
             return
@@ -77,7 +77,7 @@ class TkApp(tk.Tk):
                 inner_radius_val = input_frame.inner_radius.get()
                 outer_radius_val = input_frame.outer_radius.get()
             except _tkinter.TclError:
-                error_text = 'Не удалось сохранить конфиг'
+                error_text = 'Не удалось сохранить пресет!'
                 input_frame.error_label.configure(text=error_text)
                 return
             
@@ -86,17 +86,22 @@ class TkApp(tk.Tk):
                     f'ri: {inner_radius_val}\n' + f'ro: {outer_radius_val}\n'
             output_file.write(output_line)
 
-    def _load_config(self) -> None:
+    def _load_preset(self) -> None:
         filepath = filedialog.askopenfilename()
         if filepath == ():
             return
 
         with open(filepath, 'r') as input_file:
             input_frame = self.frames[InputPage]
-            _, _star_coord_x = input_file.readline().split()
-            _, _star_coord_y = input_file.readline().split()
-            _, _inner_radius = input_file.readline().split()
-            _, _outer_radius = input_file.readline().split()
+            try:
+                _, _star_coord_x = input_file.readline().split()
+                _, _star_coord_y = input_file.readline().split()
+                _, _inner_radius = input_file.readline().split()
+                _, _outer_radius = input_file.readline().split()
+            except ValueError:
+                error_text = 'Не удалось загрузить пресет!'
+                input_frame.error_label.configure(text=error_text)
+                return
 
             input_frame.entry_star_coord_x.delete(0, tk.END)
             input_frame.entry_star_coord_y.delete(0, tk.END)
@@ -114,12 +119,12 @@ class TkApp(tk.Tk):
 
         self.file_menubar = tk.Menu(self, tearoff=False)
         self.file_menubar.add_command(
-            label='Load config',
-            command=self._load_config
+            label='Load preset',
+            command=self._load_preset
         )
         self.file_menubar.add_command(
-            label='Save config',
-            command=self._save_config
+            label='Save preset',
+            command=self._save_preset
         )
         self.file_menubar.add_separator()
         self.file_menubar.add_command(
@@ -128,16 +133,16 @@ class TkApp(tk.Tk):
         )
 
         self.menubar.add_cascade(
-            label='File',
+            label='File ',
             menu=self.file_menubar,
             underline=0
         )
         self.menubar.add_command(
-            label='Input Page',
+            label='Input Page ',
             command=self._show_input_page
         )
         self.menubar.add_command(
-            label='Data Page',
+            label= 'Data Page ',
             command=self._show_data_page
         )
 
