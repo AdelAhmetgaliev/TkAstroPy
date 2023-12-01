@@ -16,7 +16,7 @@ class InputPage(ttk.Frame):
     def _read_filepath(self) -> None:
         self.filepath = filedialog.askopenfilename()
         if self.filepath == ():
-            self.filepath = ""
+            self.filepath = ''
 
     def _on_write(self, *_) -> None:
         try:
@@ -45,7 +45,7 @@ class InputPage(ttk.Frame):
         self.error_label.configure(text='')
 
     def _init_variables(self) -> None:
-        self.filepath = ""
+        self.filepath = ''
 
         self.star_coord_x = tk.IntVar()
         self.star_coord_y = tk.IntVar()

@@ -28,7 +28,7 @@ class TkApp(tk.Tk):
     def _configure_frames(self) -> None:
         container = ttk.Frame(self)
         container.pack(side='top', fill='both', expand=True)
-        
+ 
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
 
@@ -65,8 +65,8 @@ class TkApp(tk.Tk):
         return f'{app_width}x{app_height}+{app_xcenter}+{app_ycenter}'
 
     def _save_preset(self) -> None:
-        filepath = filedialog.asksaveasfilename()
-        if filepath == ():
+        filepath = filedialog.asksaveasfilename(initialdir='presets/')
+        if filepath == '' or filepath == ():
             return
 
         with open(filepath, 'w') as output_file:
@@ -80,15 +80,15 @@ class TkApp(tk.Tk):
                 error_text = 'Не удалось сохранить пресет!'
                 input_frame.error_label.configure(text=error_text)
                 return
-            
+ 
             output_line = \
                     f'x: {star_coord_x_val}\n' + f'y: {star_coord_y_val}\n' + \
                     f'ri: {inner_radius_val}\n' + f'ro: {outer_radius_val}\n'
             output_file.write(output_line)
 
     def _load_preset(self) -> None:
-        filepath = filedialog.askopenfilename()
-        if filepath == ():
+        filepath = filedialog.askopenfilename(initialdir='presets/')
+        if filepath == '' or filepath == ():
             return
 
         with open(filepath, 'r') as input_file:
@@ -142,7 +142,7 @@ class TkApp(tk.Tk):
             command=self._show_input_page
         )
         self.menubar.add_command(
-            label= 'Data Page ',
+            label='Data Page ',
             command=self._show_data_page
         )
 
