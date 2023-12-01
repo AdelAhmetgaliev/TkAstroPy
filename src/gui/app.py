@@ -1,5 +1,8 @@
+import _tkinter
 import tkinter as tk
 import tkinter.font as tkFont
+
+from tkinter import filedialog
 from tkinter import ttk
 
 from .input_page import InputPage
@@ -60,7 +63,51 @@ class TkApp(tk.Tk):
         app_ycenter = str(screen_height // 4)
 
         return f'{app_width}x{app_height}+{app_xcenter}+{app_ycenter}'
-    
+
+    def _save_config(self) -> None:
+        filepath = filedialog.asksaveasfilename()
+        if filepath == ():
+            return
+
+        with open(filepath, 'w') as output_file:
+            input_frame = self.frames[InputPage]
+            try:
+                star_coord_x_val = input_frame.star_coord_x.get()
+                star_coord_y_val = input_frame.star_coord_y.get()
+                inner_radius_val = input_frame.inner_radius.get()
+                outer_radius_val = input_frame.outer_radius.get()
+            except _tkinter.TclError:
+                error_text = 'Не удалось сохранить конфиг'
+                input_frame.error_label.configure(text=error_text)
+                return
+            
+            output_line = \
+                    f'x: {star_coord_x_val}\n' + f'y: {star_coord_y_val}\n' + \
+                    f'ri: {inner_radius_val}\n' + f'ro: {outer_radius_val}\n'
+            output_file.write(output_line)
+
+    def _load_config(self) -> None:
+        filepath = filedialog.askopenfilename()
+        if filepath == ():
+            return
+
+        with open(filepath, 'r') as input_file:
+            input_frame = self.frames[InputPage]
+            _, _star_coord_x = input_file.readline().split()
+            _, _star_coord_y = input_file.readline().split()
+            _, _inner_radius = input_file.readline().split()
+            _, _outer_radius = input_file.readline().split()
+
+            input_frame.entry_star_coord_x.delete(0, tk.END)
+            input_frame.entry_star_coord_y.delete(0, tk.END)
+            input_frame.entry_inner_radius.delete(0, tk.END)
+            input_frame.entry_outer_radius.delete(0, tk.END)
+
+            input_frame.entry_star_coord_x.insert(0, _star_coord_x)
+            input_frame.entry_star_coord_y.insert(0, _star_coord_y)
+            input_frame.entry_inner_radius.insert(0, _inner_radius)
+            input_frame.entry_outer_radius.insert(0, _outer_radius)
+
     def _configure_menubar(self) -> None:
         self.menubar = tk.Menu(self)
         self.config(menu=self.menubar)
@@ -68,9 +115,11 @@ class TkApp(tk.Tk):
         self.file_menubar = tk.Menu(self, tearoff=False)
         self.file_menubar.add_command(
             label='Load config',
+            command=self._load_config
         )
         self.file_menubar.add_command(
-            label='Save config'
+            label='Save config',
+            command=self._save_config
         )
         self.file_menubar.add_separator()
         self.file_menubar.add_command(
