@@ -57,7 +57,7 @@ class InputPage(ttk.Frame):
 
     def _init_widgets(self) -> None:
         self.columnconfigure(0, weight=2)
-        self.columnconfigure(1, weight=4)
+        self.columnconfigure(1, weight=2)
 
         self.text_input_star_coord_label = ttk.Label(self, text='Введите координаты звезды:')
         self.text_input_inner_radius_label = ttk.Label(self, text='Введите внутренний радиус кольца:')
@@ -75,49 +75,49 @@ class InputPage(ttk.Frame):
                 column=0, row=0,
                 columnspan=2,
                 padx=10, pady=10,
-                sticky='w'
+                sticky='nswe'
         )
         self.entry_star_coord_x.grid(
                 column=0, row=1,
                 padx=50, pady=3,
-                sticky='w'
+                sticky='nswe'
         )
         self.entry_star_coord_y.grid(
                 column=1, row=1,
                 padx=20, pady=3,
-                sticky='w'
+                sticky='nswe'
         )
         self.text_input_inner_radius_label.grid(
                 column=0, row=2,
                 columnspan=2,
                 padx=10, pady=20,
-                sticky='w'
+                sticky='nswe'
         )
         self.entry_inner_radius.grid(
                 column=0, row=3,
                 padx=50, pady=3,
-                sticky='w'
+                sticky='nswe'
         )
         self.text_input_outer_radius_label.grid(
                 column=0, row=4, 
                 columnspan=2,
                 padx=10, pady=20,
-                sticky='w'
+                sticky='nswe'
         )
         self.entry_outer_radius.grid(
                 column=0, row=5,
                 padx=50, pady=3,
-                sticky='w'
+                sticky='nswe'
         )
         self.input_file_button.grid(
                 column=0, row=6,
                 padx=10, pady=50,
-                sticky='w'
+                sticky='nswe'
         )
         self.error_label.grid(
                 column=0, row=8,
                 columnspan=2,
                 padx=10, pady=50,
-                sticky='w'
+                sticky='nswe'
         )
 
