@@ -115,7 +115,7 @@ class InputPage(ttk.Frame):
                 sticky='w'
         )
         self.error_label.grid(
-                column=0, row=7,
+                column=0, row=8,
                 columnspan=2,
                 padx=10, pady=50,
                 sticky='w'

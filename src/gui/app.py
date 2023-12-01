@@ -15,6 +15,7 @@ class TkApp(tk.Tk):
 
         self._configure_font()
         self._configure_frames()
+        self._configure_menubar()
 
     def _configure_font(self) -> None:
         default_font = tkFont.nametofont('TkDefaultFont')
@@ -42,6 +43,12 @@ class TkApp(tk.Tk):
         frame = self.frames[FrameClass]
         frame.tkraise()
 
+    def _show_input_page(self):
+        self._show_frame(InputPage)
+
+    def _show_data_page(self):
+        self._show_frame(DataPage)
+
     def _get_init_geometry(self) -> str:
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
@@ -53,4 +60,35 @@ class TkApp(tk.Tk):
         app_ycenter = str(screen_height // 4)
 
         return f'{app_width}x{app_height}+{app_xcenter}+{app_ycenter}'
+    
+    def _configure_menubar(self) -> None:
+        self.menubar = tk.Menu(self)
+        self.config(menu=self.menubar)
+
+        self.file_menubar = tk.Menu(self, tearoff=False)
+        self.file_menubar.add_command(
+            label='Load config',
+        )
+        self.file_menubar.add_command(
+            label='Save config'
+        )
+        self.file_menubar.add_separator()
+        self.file_menubar.add_command(
+            label='Exit',
+            command=self.destroy
+        )
+
+        self.menubar.add_cascade(
+            label='File',
+            menu=self.file_menubar,
+            underline=0
+        )
+        self.menubar.add_command(
+            label='Input Page',
+            command=self._show_input_page
+        )
+        self.menubar.add_command(
+            label='Data Page',
+            command=self._show_data_page
+        )
 
