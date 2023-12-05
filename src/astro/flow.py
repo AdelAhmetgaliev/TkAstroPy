@@ -15,7 +15,6 @@ def calculate_star_flow(
                 continue
             total_energy += image_data[y, x]
 
-
     return total_energy / exposure_time
 
 
@@ -46,22 +45,4 @@ def calculate_flow(
         inner_radius: int, outer_radius: int) -> float:
     return calculate_star_flow(fits_file_path, star_coord, inner_radius) - \
             calculate_noise_flow(fits_file_path, star_coord, inner_radius, outer_radius)
-
-
-def main() -> None:
-    test_path = '/home/adel/Documents/Programming_Projects/Python_Projects/TkAstroPy/fits/fit0.fit'
-    test_star_coord = (1091, 1036)
-    test_inner_radius = 5
-    test_outer_radius = 10
-
-    star_flow = calculate_star_flow(test_path, test_star_coord, test_inner_radius)
-    noise_flow = calculate_noise_flow(test_path, test_star_coord, 
-                                      test_inner_radius, test_outer_radius)
-    flow = calculate_flow(test_path, test_star_coord, test_inner_radius, test_outer_radius)
-    
-    print(f'{star_flow} - {noise_flow} = {flow}')
-
-
-if __name__ == '__main__':
-    main()
 
