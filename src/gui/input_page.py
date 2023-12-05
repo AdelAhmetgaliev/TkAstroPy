@@ -4,6 +4,10 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
 
+from .data_page import DataPage
+
+from astro import calculate_star_flow, calculate_noise_flow, calculate_flow
+
 
 class InputPage(ttk.Frame):
     def __init__(self, master, controller) -> None:
@@ -14,9 +18,11 @@ class InputPage(ttk.Frame):
         self._init_widgets()
 
     def _read_filepath(self) -> None:
-        self.filepath = filedialog.askopenfilename()
+        self.filepath = filedialog.askopenfilename(initialdir='fits/')
         if self.filepath == ():
             self.filepath = ''
+
+        self._on_write()
 
     def _on_write(self, *_) -> None:
         try:
@@ -43,6 +49,28 @@ class InputPage(ttk.Frame):
             return
 
         self.error_label.configure(text='')
+ 
+        if self.filepath == '':
+            return
+
+        star_coord = (star_coord_x_val, star_coord_y_val)
+        star_flow = calculate_star_flow(
+                self.filepath, star_coord, inner_radius_val)
+        noise_flow = calculate_noise_flow(
+                self.filepath, star_coord, inner_radius_val, outer_radius_val)
+        total_flow = calculate_flow(
+                self.filepath, star_coord, inner_radius_val, outer_radius_val)
+
+        self.controller.frames[DataPage].update_labels(
+                round(star_flow, 2), 
+                round(noise_flow, 2), 
+                round(total_flow, 2)
+        )
+        self.controller.frames[DataPage].update_variables(
+                self.filepath,
+                star_coord,
+                inner_radius_val
+        )
 
     def _init_variables(self) -> None:
         self.filepath = ''
