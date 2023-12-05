@@ -47,6 +47,10 @@ class InputPage(ttk.Frame):
             error_text = 'Внутренний радиус не может быть больше внешнего!'
             self.error_label.configure(text=error_text)
             return
+        if inner_radius_val == outer_radius_val:
+            error_text = 'Внутренний радиус не может быть равен внешнему!'
+            self.error_label.configure(text=error_text)
+            return
 
         self.error_label.configure(text='')
  
