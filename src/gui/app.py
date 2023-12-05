@@ -42,14 +42,14 @@ class TkApp(tk.Tk):
 
         self._show_frame(InputPage)
 
-    def _show_frame(self, FrameClass):
+    def _show_frame(self, FrameClass) -> None:
         frame = self.frames[FrameClass]
         frame.tkraise()
 
-    def _show_input_page(self):
+    def _show_input_page(self) -> None:
         self._show_frame(InputPage)
 
-    def _show_data_page(self):
+    def _show_data_page(self) -> None:
         self._show_frame(DataPage)
 
     def _get_init_geometry(self) -> str:

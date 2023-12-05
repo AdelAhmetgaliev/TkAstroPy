@@ -96,6 +96,9 @@ class DataPage(ttk.Frame):
         )
 
     def _build_graphs(self) -> None:
+        if self.filepath == '':
+            return
+
         match self.chosen_graph_type.get():
             case 'X':
                 plt.title('Энергия звезды по координаты X')
@@ -110,7 +113,7 @@ class DataPage(ttk.Frame):
  
                 plt.plot(*get_data_from_y_graph(self.filepath, self.star_coord, self.radius))
                 plt.show()
-            case _:
+            case 'Z':
                 z_list, y_list, x_list = get_data_from_z_graph(
                         self.filepath, self.star_coord, self.radius)
                 x_list, y_list = meshgrid(x_list, y_list)
