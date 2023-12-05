@@ -33,18 +33,15 @@ def get_data_from_z_graph(
         filepath: str, star_coord: tuple[int, int], radius: int) -> tuple[list, list, list]:
     image_data = fits.getdata(filepath)
 
-    x_list = []
-    y_list = []
+    x_list = [x for x in range(star_coord[0] - radius, star_coord[0] + radius)]
+    y_list = [y for y in range(star_coord[1] - radius, star_coord[1] + radius)]
     z_list = []
 
-    for y in range(star_coord[1] - radius, star_coord[1] + radius):
+    for y in y_list:
         z_list.append([])
-        y_list.append(y)
-        for x in range(star_coord[0] - radius, star_coord[0] + radius):
-            if x == star_coord[0]:
-                x_list.append(x)
-
+        for x in x_list:
             z_list[y - star_coord[1] + radius].append(image_data[y, x])
+
  
     return (z_list, y_list, x_list)
 

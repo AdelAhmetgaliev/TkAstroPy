@@ -121,6 +121,11 @@ class DataPage(ttk.Frame):
 
                 fig = plt.figure()
                 ax = fig.add_subplot(projection='3d')
+
+                ax.set_xlabel('Координата звезды по оси X')
+                ax.set_ylabel('Координата звезды по оси Y')
+                ax.set_zlabel('Энергия')
+
                 ax.plot_surface(x_list, y_list, z_list)
 
                 plt.show()
