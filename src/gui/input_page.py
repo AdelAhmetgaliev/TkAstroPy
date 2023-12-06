@@ -4,6 +4,8 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
 
+from astropy.io import fits
+
 from .data_page import DataPage
 
 from astro import calculate_star_flow, calculate_noise_flow, calculate_total_flow
@@ -58,12 +60,20 @@ class InputPage(ttk.Frame):
             return
 
         star_coord = (star_coord_x_val, star_coord_y_val)
-        star_flow = calculate_star_flow(
+        try:
+            star_flow = calculate_star_flow(
                 self.filepath, star_coord, inner_radius_val)
-        noise_flow = calculate_noise_flow(
+            noise_flow = calculate_noise_flow(
                 self.filepath, star_coord, inner_radius_val, outer_radius_val)
-        total_flow = calculate_total_flow(
+            total_flow = calculate_total_flow(
                 self.filepath, star_coord, inner_radius_val, outer_radius_val)
+        except IndexError:
+            error_text = 'Координаты звезды вне диапазона данных файла!'
+            self.error_label.configure(text=error_text)
+
+            star_flow = 0.0
+            noise_flow = 0.0
+            total_flow = 0.0
 
         self.controller.frames[DataPage].update_labels(
                 round(star_flow, 2), 
