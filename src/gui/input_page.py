@@ -72,6 +72,13 @@ class InputPage(ttk.Frame):
             star_flow = 0.0
             noise_flow = 0.0
             total_flow = 0.0
+        except ZeroDivisionError:
+            error_text = 'Разница между радиусами мала!'
+            self.error_label.configure(text=error_text)
+
+            star_flow = 0.0
+            noise_flow = 0.0
+            total_flow = 0.0
 
         self.controller.frames[dp.DataPage].update_labels(
                 round(star_flow, 2), 
