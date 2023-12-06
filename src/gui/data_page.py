@@ -4,7 +4,7 @@ from tkinter import StringVar
 import matplotlib.pyplot as plt
 from numpy import meshgrid, array
 
-from astro.graph import get_data_from_x_graph, get_data_from_y_graph, get_data_from_z_graph
+from astro.graph import get_data_for_x_graph, get_data_for_y_graph, get_data_for_z_graph
 
 
 class DataPage(ttk.Frame):
@@ -104,17 +104,17 @@ class DataPage(ttk.Frame):
                 plt.title('Энергия звезды по координаты X')
                 plt.xlabel('Координата звезды')
                 plt.ylabel('Энергия')
-                plt.plot(*get_data_from_x_graph(self.filepath, self.star_coord, self.radius))
+                plt.plot(*get_data_for_x_graph(self.filepath, self.star_coord, self.radius))
                 plt.show()
             case 'Y':
                 plt.title('Энергия звезды по координаты Y')
                 plt.xlabel('Координата звезды')
                 plt.ylabel('Энергия')
  
-                plt.plot(*get_data_from_y_graph(self.filepath, self.star_coord, self.radius))
+                plt.plot(*get_data_for_y_graph(self.filepath, self.star_coord, self.radius))
                 plt.show()
             case 'Z':
-                z_list, y_list, x_list = get_data_from_z_graph(
+                z_list, y_list, x_list = get_data_for_z_graph(
                         self.filepath, self.star_coord, self.radius)
                 x_list, y_list = meshgrid(x_list, y_list)
                 z_list = array(z_list)

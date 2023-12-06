@@ -40,7 +40,7 @@ def calculate_noise_flow(
     return total_noise_energy / (pixel_count * exposure_time)
 
 
-def calculate_flow(
+def calculate_total_flow(
         fits_file_path: str, star_coord: tuple[int, int],
         inner_radius: int, outer_radius: int) -> float:
     return calculate_star_flow(fits_file_path, star_coord, inner_radius) - \

@@ -6,7 +6,7 @@ from tkinter import filedialog
 
 from .data_page import DataPage
 
-from astro import calculate_star_flow, calculate_noise_flow, calculate_flow
+from astro import calculate_star_flow, calculate_noise_flow, calculate_total_flow
 
 
 class InputPage(ttk.Frame):
@@ -62,7 +62,7 @@ class InputPage(ttk.Frame):
                 self.filepath, star_coord, inner_radius_val)
         noise_flow = calculate_noise_flow(
                 self.filepath, star_coord, inner_radius_val, outer_radius_val)
-        total_flow = calculate_flow(
+        total_flow = calculate_total_flow(
                 self.filepath, star_coord, inner_radius_val, outer_radius_val)
 
         self.controller.frames[DataPage].update_labels(
