@@ -11,7 +11,7 @@ def calculate_star_flow(
     total_energy = 0.0
     for y in range(y_star_coord - radius, y_star_coord + radius):
         for x in range(x_star_coord - radius, x_star_coord + radius):
-            if abs(y - y_star_coord) + abs(x - x_star_coord) > radius:
+            if (y - y_star_coord) ** 2 + (x - x_star_coord) ** 2 > radius ** 2:
                 continue
             total_energy += image_data[y, x]
 
@@ -30,8 +30,8 @@ def calculate_noise_flow(
     total_noise_energy = 0.0
     for y in range(y_star_coord + inner_radius, y_star_coord + outer_radius):
         for x in range(x_star_coord + inner_radius, x_star_coord + outer_radius):
-            if abs(y - y_star_coord) + abs(x - x_star_coord) < inner_radius or \
-                abs(y - y_star_coord) + abs(x - x_star_coord) > outer_radius:
+            if (y - y_star_coord) ** 2 + (x - x_star_coord) ** 2 < inner_radius ** 2 or \
+                (y - y_star_coord) ** 2 + (x - x_star_coord) ** 2 > outer_radius ** 2:
                 continue
 
             total_noise_energy += image_data[y, x]
