@@ -6,6 +6,8 @@ from numpy import meshgrid, array
 
 from astro.graph import get_data_for_x_graph, get_data_for_y_graph, get_data_for_z_graph
 
+from . import input_page as ip
+
 
 class DataPage(ttk.Frame):
     def __init__(self, master, controller) -> None:
@@ -97,6 +99,10 @@ class DataPage(ttk.Frame):
 
     def _build_graphs(self) -> None:
         if self.filepath == '':
+            return
+
+        input_page = self.controller.frames[ip.InputPage]
+        if input_page.error_label['text'] != '':
             return
 
         match self.chosen_graph_type.get():

@@ -4,11 +4,9 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
 
-from astropy.io import fits
-
-from .data_page import DataPage
-
 from astro import calculate_star_flow, calculate_noise_flow, calculate_total_flow
+
+from . import data_page as dp
 
 
 class InputPage(ttk.Frame):
@@ -75,12 +73,12 @@ class InputPage(ttk.Frame):
             noise_flow = 0.0
             total_flow = 0.0
 
-        self.controller.frames[DataPage].update_labels(
+        self.controller.frames[dp.DataPage].update_labels(
                 round(star_flow, 2), 
                 round(noise_flow, 2), 
                 round(total_flow, 2)
         )
-        self.controller.frames[DataPage].update_variables(
+        self.controller.frames[dp.DataPage].update_variables(
                 self.filepath,
                 star_coord,
                 inner_radius_val
