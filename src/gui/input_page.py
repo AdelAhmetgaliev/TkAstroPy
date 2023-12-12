@@ -59,7 +59,7 @@ class InputPage(ttk.Frame):
 
         star_coord = (star_coord_x_val, star_coord_y_val)
         try:
-            star_flow = calculate_star_flow(
+            star_flow, _ = calculate_star_flow(
                 self.filepath, star_coord, inner_radius_val)
             noise_flow = calculate_noise_flow(
                 self.filepath, star_coord, inner_radius_val, outer_radius_val)
